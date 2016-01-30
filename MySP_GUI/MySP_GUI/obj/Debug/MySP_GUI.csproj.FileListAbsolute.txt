@@ -1,0 +1,19 @@
+c:\users\elizabeth\documents\visual studio 2015\Projects\MySP_GUI\MySP_GUI\bin\Debug\MySP_GUI.exe.config
+c:\users\elizabeth\documents\visual studio 2015\Projects\MySP_GUI\MySP_GUI\bin\Debug\MySP_GUI.exe
+c:\users\elizabeth\documents\visual studio 2015\Projects\MySP_GUI\MySP_GUI\bin\Debug\MySP_GUI.pdb
+c:\users\elizabeth\documents\visual studio 2015\Projects\MySP_GUI\MySP_GUI\obj\Debug\MySP_GUI.csprojResolveAssemblyReference.cache
+c:\users\elizabeth\documents\visual studio 2015\Projects\MySP_GUI\MySP_GUI\obj\Debug\MySP_GUI.Properties.Resources.resources
+c:\users\elizabeth\documents\visual studio 2015\Projects\MySP_GUI\MySP_GUI\obj\Debug\MySP_GUI.csproj.GenerateResource.Cache
+c:\users\elizabeth\documents\visual studio 2015\Projects\MySP_GUI\MySP_GUI\obj\Debug\MySP_GUI.exe
+c:\users\elizabeth\documents\visual studio 2015\Projects\MySP_GUI\MySP_GUI\obj\Debug\MySP_GUI.pdb
+c:\users\elizabeth\documents\visual studio 2015\Projects\MySP_GUI\MySP_GUI\obj\Debug\MySP_GUI.MySPForm.resources
+E:\12th_grade\project\MySP_GUI\MySP_GUI\bin\Debug\MySP_GUI.exe.config
+E:\12th_grade\project\MySP_GUI\MySP_GUI\obj\Debug\MySP_GUI.exe
+E:\12th_grade\project\MySP_GUI\MySP_GUI\obj\Debug\MySP_GUI.pdb
+E:\12th_grade\project\MySP_GUI\MySP_GUI\bin\Debug\MySP_GUI.exe
+E:\12th_grade\project\MySP_GUI\MySP_GUI\bin\Debug\MySP_GUI.pdb
+E:\12th_grade\project\MySP_GUI\MySP_GUI\obj\Debug\MySP_GUI.MySPForm.resources
+E:\12th_grade\project\MySP_GUI\MySP_GUI\obj\Debug\MySP_GUI.Properties.Resources.resources
+E:\12th_grade\project\MySP_GUI\MySP_GUI\obj\Debug\ResolveAssemblyReference.cache
+E:\12th_grade\project\MySP_GUI\MySP_GUI\obj\Debug\GenerateResource.read.1.tlog
+E:\12th_grade\project\MySP_GUI\MySP_GUI\obj\Debug\GenerateResource.write.1.tlog

@@ -16,8 +16,9 @@ namespace MySP_GUI
     public partial class MySPForm : Form
     {
         //---How to set to same dir?
-        const string PATH = "\"E:\\12th_grade\\project\\MyProject\\MySP.py\""; 
-        //const string PATH = "\"C:\\Users\\Elizabeth\\PycharmProjects\\MyProject\\MySP.py\"";
+        //const string PATH = "\"E:\\12th_grade\\project\\MyProject\\MySP.py\""; 
+        const string PATH = "\"D:\\MyProject\\MyProject\\MySP.py\"";
+        
         const string HOST = "127.0.0.1";
         const int PORT = 5555;
         string param;
@@ -30,9 +31,8 @@ namespace MySP_GUI
         public MySPForm()
         {
             InitializeComponent();
-            //MyTabControl.TabPages
-            
-            //PrivateTab.Enabled = false;
+            label2.Text = System.IO.Directory.GetCurrentDirectory();
+            //const string PATH = 
         }
         
         /*

@@ -1,6 +1,7 @@
 from subprocess import Popen, PIPE
 import threading
 import socket
+import os
 #import subprocess
 
 HOST_MAIN = "127.0.0.1"
@@ -9,7 +10,8 @@ PORT_MAIN = 7777
 HOST_GUI = "127.0.0.1"
 PORT_GUI = 3333
 
-PATH = r'E:\12th_grade\project\Login_GUI\Login_GUI\bin\Debug\Login_GUI.exe'
+#PATH = r'E:\12th_grade\project\Login_GUI\Login_GUI\bin\Debug\Login_GUI.exe'
+#PATH = r'D:\MyProject\Login_GUI\Login_GUI\bin\Debug\Login_GUI.exe'
 
 
 class IdpService(threading.Thread):
@@ -49,7 +51,7 @@ class IdpService(threading.Thread):
         # check if a user with these credentials exists
         # return the user's ID (or else return None)
         if username == "elle" and password == "12345":
-            return 44
+            return 11
         else:
             return None
         #return user_id
@@ -118,4 +120,7 @@ def main():
 
 
 if __name__ == '__main__':
+    os.chdir("..")
+    PATH = os.getcwd() + r'\Login_GUI\Login_GUI\bin\Debug\Login_GUI.exe'
+    print PATH
     main()

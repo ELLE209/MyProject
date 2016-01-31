@@ -5,3 +5,5 @@ E:\12th_grade\project\Login_GUI\Login_GUI\obj\x86\Debug\Login_GUI.Properties.Res
 E:\12th_grade\project\Login_GUI\Login_GUI\obj\x86\Debug\Login_GUI.csproj.GenerateResource.Cache
 E:\12th_grade\project\Login_GUI\Login_GUI\obj\x86\Debug\Login_GUI.exe
 E:\12th_grade\project\Login_GUI\Login_GUI\obj\x86\Debug\Login_GUI.pdb
+D:\MyProject\Login_GUI\Login_GUI\obj\x86\Debug\Login_GUI.exe
+D:\MyProject\Login_GUI\Login_GUI\obj\x86\Debug\Login_GUI.pdb

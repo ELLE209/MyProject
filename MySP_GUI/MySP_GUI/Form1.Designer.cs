@@ -44,6 +44,7 @@
             this.NameLabel = new System.Windows.Forms.Label();
             this.GreetingLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.MyTabControl.SuspendLayout();
             this.PublicTab.SuspendLayout();
             this.PrivateTab.SuspendLayout();
@@ -55,7 +56,7 @@
             this.MyTabControl.Controls.Add(this.PrivateTab);
             this.MyTabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MyTabControl.Location = new System.Drawing.Point(9, 10);
-            this.MyTabControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MyTabControl.Margin = new System.Windows.Forms.Padding(2);
             this.MyTabControl.Name = "MyTabControl";
             this.MyTabControl.SelectedIndex = 0;
             this.MyTabControl.Size = new System.Drawing.Size(652, 392);
@@ -64,6 +65,7 @@
             // PublicTab
             // 
             this.PublicTab.BackColor = System.Drawing.Color.Snow;
+            this.PublicTab.Controls.Add(this.label2);
             this.PublicTab.Controls.Add(this.FailLabel);
             this.PublicTab.Controls.Add(this.SuccessLabel);
             this.PublicTab.Controls.Add(this.LoginButton);
@@ -74,9 +76,9 @@
             this.PublicTab.Controls.Add(this.WelcomeLabel);
             this.PublicTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PublicTab.Location = new System.Drawing.Point(4, 25);
-            this.PublicTab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PublicTab.Margin = new System.Windows.Forms.Padding(2);
             this.PublicTab.Name = "PublicTab";
-            this.PublicTab.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PublicTab.Padding = new System.Windows.Forms.Padding(2);
             this.PublicTab.Size = new System.Drawing.Size(644, 363);
             this.PublicTab.TabIndex = 0;
             this.PublicTab.Text = "Main Page";
@@ -111,7 +113,7 @@
             this.LoginButton.Enabled = false;
             this.LoginButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoginButton.Location = new System.Drawing.Point(268, 290);
-            this.LoginButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LoginButton.Margin = new System.Windows.Forms.Padding(2);
             this.LoginButton.Name = "LoginButton";
             this.LoginButton.Size = new System.Drawing.Size(86, 32);
             this.LoginButton.TabIndex = 6;
@@ -124,7 +126,7 @@
             this.OtherRadioButton.AutoSize = true;
             this.OtherRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OtherRadioButton.Location = new System.Drawing.Point(146, 249);
-            this.OtherRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OtherRadioButton.Margin = new System.Windows.Forms.Padding(2);
             this.OtherRadioButton.Name = "OtherRadioButton";
             this.OtherRadioButton.Size = new System.Drawing.Size(79, 24);
             this.OtherRadioButton.TabIndex = 5;
@@ -138,7 +140,7 @@
             this.UserPassRadioButton.AutoSize = true;
             this.UserPassRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UserPassRadioButton.Location = new System.Drawing.Point(146, 210);
-            this.UserPassRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.UserPassRadioButton.Margin = new System.Windows.Forms.Padding(2);
             this.UserPassRadioButton.Name = "UserPassRadioButton";
             this.UserPassRadioButton.Size = new System.Drawing.Size(258, 24);
             this.UserPassRadioButton.TabIndex = 4;
@@ -152,7 +154,7 @@
             this.MyRadioButton.AutoSize = true;
             this.MyRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MyRadioButton.Location = new System.Drawing.Point(146, 171);
-            this.MyRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MyRadioButton.Margin = new System.Windows.Forms.Padding(2);
             this.MyRadioButton.Name = "MyRadioButton";
             this.MyRadioButton.Size = new System.Drawing.Size(282, 24);
             this.MyRadioButton.TabIndex = 3;
@@ -196,9 +198,9 @@
             this.PrivateTab.Controls.Add(this.label1);
             this.PrivateTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PrivateTab.Location = new System.Drawing.Point(4, 25);
-            this.PrivateTab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PrivateTab.Margin = new System.Windows.Forms.Padding(2);
             this.PrivateTab.Name = "PrivateTab";
-            this.PrivateTab.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PrivateTab.Padding = new System.Windows.Forms.Padding(2);
             this.PrivateTab.Size = new System.Drawing.Size(644, 363);
             this.PrivateTab.TabIndex = 1;
             this.PrivateTab.Text = "My Info";
@@ -260,13 +262,22 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "You are now successfully connected to MySP";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(78, 64);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 24);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "label2";
+            // 
             // MySPForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(670, 411);
             this.Controls.Add(this.MyTabControl);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MySPForm";
             this.Text = "My Service Provider";
             this.MyTabControl.ResumeLayout(false);
@@ -296,6 +307,7 @@
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Label GreetingLabel;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

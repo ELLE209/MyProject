@@ -44,7 +44,6 @@
             this.NameLabel = new System.Windows.Forms.Label();
             this.GreetingLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.MyTabControl.SuspendLayout();
             this.PublicTab.SuspendLayout();
             this.PrivateTab.SuspendLayout();
@@ -65,7 +64,6 @@
             // PublicTab
             // 
             this.PublicTab.BackColor = System.Drawing.Color.Snow;
-            this.PublicTab.Controls.Add(this.label2);
             this.PublicTab.Controls.Add(this.FailLabel);
             this.PublicTab.Controls.Add(this.SuccessLabel);
             this.PublicTab.Controls.Add(this.LoginButton);
@@ -262,15 +260,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "You are now successfully connected to MySP";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(78, 64);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 24);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "label2";
-            // 
             // MySPForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -307,7 +296,6 @@
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Label GreetingLabel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
     }
 }
 

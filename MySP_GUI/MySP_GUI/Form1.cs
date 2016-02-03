@@ -15,10 +15,10 @@ namespace MySP_GUI
 {
     public partial class MySPForm : Form
     {
-        //---How to set to same dir?
-        //const string PATH = "\"E:\\12th_grade\\project\\MyProject\\MySP.py\""; 
-        const string PATH = "\"D:\\MyProject\\MyProject\\MySP.py\"";
-        
+        //---How to set to same dir? (DONE)
+        const string INSIDE_PATH = "\"\\MyProject\\MySP.py\"";
+        string cur_changed_dir;
+        string PATH;
         const string HOST = "127.0.0.1";
         const int PORT = 5555;
         string param;
@@ -31,8 +31,9 @@ namespace MySP_GUI
         public MySPForm()
         {
             InitializeComponent();
-            label2.Text = System.IO.Directory.GetCurrentDirectory();
-            //const string PATH = 
+            System.IO.Directory.SetCurrentDirectory(@"..\..\..\..");
+            cur_changed_dir = System.IO.Directory.GetCurrentDirectory();
+            PATH = cur_changed_dir + INSIDE_PATH;
         }
         
         /*

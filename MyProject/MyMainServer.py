@@ -10,8 +10,7 @@ PORT_MAIN = 7777
 HOST_GUI = "127.0.0.1"
 PORT_GUI = 3333
 
-#PATH = r'E:\12th_grade\project\Login_GUI\Login_GUI\bin\Debug\Login_GUI.exe'
-#PATH = r'D:\MyProject\Login_GUI\Login_GUI\bin\Debug\Login_GUI.exe'
+INSIDE_PATH = r'\Login_GUI\Login_GUI\bin\Debug\Login_GUI.exe'
 
 
 class IdpService(threading.Thread):
@@ -121,6 +120,6 @@ def main():
 
 if __name__ == '__main__':
     os.chdir("..")
-    PATH = os.getcwd() + r'\Login_GUI\Login_GUI\bin\Debug\Login_GUI.exe'
+    PATH = os.getcwd() + INSIDE_PATH
     print PATH
     main()

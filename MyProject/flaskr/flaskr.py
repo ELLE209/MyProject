@@ -12,8 +12,8 @@ from contextlib import closing
 # endregion
 
 # region ------------------ CONFIGURATIONS -----------------------
-#DATABASE = 'C:\Users\Elizabeth\MyDB.db'
-DATABASE = 'C:\Users\Elizabeth\Documents\GitHub\MyProject\MyProject\databases\MyDB.db'
+DATABASE = 'C:\MyProject\MyProject\databases\MyDB.db'
+#DATABASE = 'C:\Users\Elizabeth\Documents\GitHub\MyProject\MyProject\databases\MyDB.db'
 DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'

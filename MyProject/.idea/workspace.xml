@@ -26,7 +26,7 @@
       <file leaf-file-name="MyMainServer.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MyMainServer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1588" max-vertical-offset="2159">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1537" max-vertical-offset="2159">
               <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
               <folding />
             </state>
@@ -36,42 +36,28 @@
       <file leaf-file-name="MySP.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MySP.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1054">
+            <state vertical-scroll-proportion="0.0" vertical-offset="799" max-vertical-offset="1071">
               <caret line="47" column="17" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyMainServerWEB.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MyMainServerWEB.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MyMainServerWEB.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="245" max-vertical-offset="1003">
-              <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
-              <folding>
-                <element signature="e#154#184#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-0.07180385" vertical-offset="585" max-vertical-offset="1275">
+              <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MySPWEB.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="MySPWEB.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MySPWEB.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37478107" vertical-offset="398" max-vertical-offset="986">
-              <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-              <folding>
-                <element signature="e#153#167#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="flaskr.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flaskr/flaskr.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1003">
-              <caret line="24" column="50" selection-start-line="23" selection-start-column="0" selection-end-line="24" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="313" max-vertical-offset="986">
+              <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
               <folding>
                 <element signature="e#153#167#0" expanded="true" />
               </folding>
@@ -82,11 +68,19 @@
       <file leaf-file-name="DataBaseManager.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DataBaseManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="184" max-vertical-offset="1139">
-              <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="245" max-vertical-offset="1139">
+              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="flaskr.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flaskr/flaskr.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="952">
+              <caret line="24" column="50" selection-start-line="23" selection-start-column="0" selection-end-line="24" selection-end-column="50" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -94,11 +88,9 @@
       <file leaf-file-name="get_pip.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flaskr/get_pip.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="322583" max-vertical-offset="323374">
+            <state vertical-scroll-proportion="0.0" vertical-offset="322498" max-vertical-offset="323289">
               <caret line="18998" column="40" selection-start-line="18998" selection-start-column="40" selection-end-line="18998" selection-end-column="40" />
-              <folding>
-                <element signature="e#1121#1135#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -201,7 +193,7 @@
       <console-settings />
     </option>
   </component>
-  <component name="RunManager" selected="Python.MySPWEB">
+  <component name="RunManager" selected="Python.MyMainServerWEB">
     <configuration default="false" name="MyMainServer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -422,8 +414,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.MySPWEB" />
-        <item index="1" class="java.lang.String" itemvalue="Python.MyMainServerWEB" />
+        <item index="0" class="java.lang.String" itemvalue="Python.MyMainServerWEB" />
+        <item index="1" class="java.lang.String" itemvalue="Python.MySPWEB" />
         <item index="2" class="java.lang.String" itemvalue="Python.flaskr" />
         <item index="3" class="java.lang.String" itemvalue="Python.MySpWEB" />
         <item index="4" class="java.lang.String" itemvalue="Python.MyMainServer" />
@@ -444,7 +436,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1612" height="912" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -454,7 +446,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26927784" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26927784" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -491,6 +483,64 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/MyMainServer.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2057" max-vertical-offset="2210">
+          <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MySP.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="799" max-vertical-offset="1071">
+          <caret line="47" column="17" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MyMainServerWEB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="245" max-vertical-offset="1003">
+          <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MySPWEB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="398" max-vertical-offset="986">
+          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+          <folding>
+            <element signature="e#153#167#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskr/flaskr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1003">
+          <caret line="24" column="50" selection-start-line="23" selection-start-column="0" selection-end-line="24" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DataBaseManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="184" max-vertical-offset="1139">
+          <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskr/get_pip.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="322583" max-vertical-offset="323374">
+          <caret line="18998" column="40" selection-start-line="18998" selection-start-column="40" selection-end-line="18998" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MyMainServer.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2210">
           <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding />
@@ -509,9 +559,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="374">
           <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-          <folding>
-            <element signature="e#154#184#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -519,9 +567,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="1003">
           <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
-          <folding>
-            <element signature="e#153#167#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -545,9 +591,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-          <folding>
-            <element signature="e#154#184#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -555,9 +599,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#153#167#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -581,9 +623,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="10" />
-          <folding>
-            <element signature="e#154#184#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -675,20 +715,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flaskr/get_pip.py">
+    <entry file="file://$PROJECT_DIR$/MySP.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="322583" max-vertical-offset="323374">
-          <caret line="18998" column="40" selection-start-line="18998" selection-start-column="40" selection-end-line="18998" selection-end-column="40" />
-          <folding>
-            <element signature="e#1121#1135#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <caret line="47" column="17" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/SQLLite/RemoteViewerClient/WordsHandler.py">
+    <entry file="file://$PROJECT_DIR$/flaskr/get_pip.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="901">
-          <caret line="22" column="34" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="322498" max-vertical-offset="323289">
+          <caret line="18998" column="40" selection-start-line="18998" selection-start-column="40" selection-end-line="18998" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -697,16 +735,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1003">
           <caret line="24" column="50" selection-start-line="23" selection-start-column="0" selection-end-line="24" selection-end-column="50" />
-          <folding>
-            <element signature="e#153#167#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MySP.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <caret line="47" column="17" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -719,41 +747,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/SQLLite/RemoteViewerClient/Database.py">
+    <entry file="file://$PROJECT_DIR$/DataBaseManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8931699" vertical-offset="0" max-vertical-offset="935">
-          <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="245" max-vertical-offset="1139">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DataBaseManager.py">
+    <entry file="file://$PROJECT_DIR$/MySPWEB.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="184" max-vertical-offset="1139">
-          <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="313" max-vertical-offset="986">
+          <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#153#167#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MyMainServerWEB.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="347" max-vertical-offset="1003">
-          <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
-          <folding>
-            <element signature="e#154#184#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MySPWEB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37478107" vertical-offset="398" max-vertical-offset="986">
+        <state vertical-scroll-proportion="-0.07180385" vertical-offset="585" max-vertical-offset="1275">
           <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-          <folding>
-            <element signature="e#153#167#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>

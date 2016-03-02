@@ -49,6 +49,7 @@ def private_login(username, password):
     #redirect to Service Provider
     #return redirect(('127.0.0.1', 80))
 
+
 @app.route('/connected/<user>')
 def connected(user):
     return 'Hello %s, you are successfully connected.' % user
@@ -58,12 +59,17 @@ def create_db():
     fields = ["ID integer primary key autoincrement", "username text not null", "passw text not null",
               "spID int not null", "spUserID int not null"]
     data_base_manager.create_table("Users", fields)
-    fields = [(1, 'elle', '12345', 1, 11), (2, 'elle1', '12345', 1, 11), (3, 'elle2', '12345', 1, 11)]
+    fields = [(1, 'elle', 'EL', 1, 11), (2, 'David', '2511', 1, 22), (3, 'dana123', '12345', 1, 33),
+              (4, 'dana123', '12345', 2, 11), (5, 'elle', 'EL', 2, 22)]
     data_base_manager.insert("Users", fields)
     data_base_manager.print_table("Users")
 
-    fields = ["SPID integer primary key autoincrement", "details text not null", "key text not null"]
+    fields = ["SPID integer primary key autoincrement", "details text not null", "redirectPath text not null",
+              "key text not null"]
     data_base_manager.create_table("SPs", fields)
+    fields = [(1, 'Sp1...', 'http:/...', 'key1'), (2, 'Sp2...', 'http:/...', 1, 'key2')]
+    data_base_manager.insert("SPs", fields)
+    data_base_manager.print_table("SPs")
 
 
 def main():

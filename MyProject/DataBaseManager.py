@@ -2,7 +2,7 @@ import sqlite3
 import sys
 
 
-NAME_DB = "MyDB.db"
+NAME_DB = "MainDB.db"
 
 
 class DataBaseManager(object):

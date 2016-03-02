@@ -43,11 +43,11 @@ def login():
 def private_login(username, password):
     #return 'Hello ' + username + ' ' + password + '!'
     #redirect to My Main Server
-    return redirect('http://127.0.0.1:8080/login/%s %s' % (username, password), code=302)
+    return redirect('http://192.168.2.193:80/login')  # /%s %s' % (username, password), code=302)
 
 
 def main():
-    app.run(host='127.0.0.1',port=80)
+    app.run(host='0.0.0.0',port=80)
 
 if __name__ == '__main__':
     main()

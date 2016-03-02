@@ -67,14 +67,14 @@ def create_db():
     fields = ["SPID integer primary key autoincrement", "details text not null", "redirectPath text not null",
               "key text not null"]
     data_base_manager.create_table("SPs", fields)
-    fields = [(1, 'Sp1...', 'http:/...', 'key1'), (2, 'Sp2...', 'http:/...', 1, 'key2')]
+    fields = [(1, 'Sp1...', 'http:/192.168.2.191', 'key1'), (2, 'Sp2...', 'http:/...', 'key2')]
     data_base_manager.insert("SPs", fields)
     data_base_manager.print_table("SPs")
 
 
 def main():
-    #create_db()
-    app.run(host='127.0.0.1', port=80)
+    create_db()
+    app.run(host='0.0.0.0', port=80)
 
 if __name__ == '__main__':
     main()

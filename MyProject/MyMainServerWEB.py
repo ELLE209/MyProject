@@ -18,11 +18,12 @@ DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
+SP_SERVER_PATH = 'http://10.0.0.9:8080'
 # endregion
 
 # region ------------------ GLOBAL -----------------------
 app = Flask(__name__)
-data_base_manager = DataBaseManager()
+data_base_manager = DataBaseManager("MainDB.db")
 # endregion
 
 
@@ -34,13 +35,14 @@ def login():
         # find user in database
         username = request.form['username']
         password = request.form['password']
-        query = "SELECT spUserID FROM Users WHERE username='%s' AND passw='%s'" % (username, password)
-        sp_user_id = data_base_manager.exec_query(query)
+        query = "SELECT spID, spUserID FROM Users WHERE username='%s' AND passw='%s'" % (username, password)
+        sp_id, sp_user_id = data_base_manager.exec_query(query)
         if sp_user_id:
-            return redirect('connected/%s' % username)
+            sp_url = get_sp_url(sp_id, sp_user_id)
+            return redirect(sp_url)
         else:
             error = 'Invalid Credentials. Please try again.'
-    return render_template('Login.html', error=error)
+    return render_template('LoginMain.html', error=error)
 
 
 @app.route('/login/<username> <password>')
@@ -50,9 +52,41 @@ def private_login(username, password):
     #return redirect(('127.0.0.1', 80))
 
 
-@app.route('/connected/<user>')
-def connected(user):
-    return 'Hello %s, you are successfully connected.' % user
+#@app.route('/connected/<user>')
+#def connected(user):
+#    return 'Hello %s, you are successfully connected.' % user
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    error = None
+    if request.method == 'POST':
+        # add this user to database
+        username = request.form['username']
+        password = request.form['password']
+        confirm_pass = request.form['confirmPassword']
+
+        if confirm_pass == password:
+            add_user(6, username, password, 1, 44)
+            return redirect(SP_SERVER_PATH+'/registeredas/44')
+        else:
+            error = 'Invalid Credentials. Please try again.'
+    return render_template('Register.html', error=error)
+
+
+def get_sp_url(sp_id, sp_user_id):
+    query = "SELECT redirectPath FROM SPs WHERE SPID=%d" % sp_id
+    try:
+        #path = data_base_manager.exec_query(query)
+        return '%s/user/%d' % (SP_SERVER_PATH, sp_user_id)
+    except:
+        pass
+
+
+def add_user(id, username, passw, sp_id, sp_user_id):
+    fields = [(id, username, passw, sp_id, sp_user_id)]
+    data_base_manager.insert("Users", fields)
+    data_base_manager.print_table("Users")
 
 
 def create_db():
@@ -67,7 +101,7 @@ def create_db():
     fields = ["SPID integer primary key autoincrement", "details text not null", "redirectPath text not null",
               "key text not null"]
     data_base_manager.create_table("SPs", fields)
-    fields = [(1, 'Sp1...', 'http:/192.168.2.191', 'key1'), (2, 'Sp2...', 'http:/...', 'key2')]
+    fields = [(1, 'Sp1...', 'http://192.168.2.191', 'key1'), (2, 'Sp2...', 'http:/...', 'key2')]
     data_base_manager.insert("SPs", fields)
     data_base_manager.print_table("SPs")
 

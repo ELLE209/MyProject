@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Your Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+	  <center>
+      {% if name %}
+	<h1>Hello {{ name }}</h1>
+	<br/><br/><br/>
+	<p><big>Your name is: </big></p>
+	<big><strong> {{ name }} </strong></big><br/><br/><br/>
+	<p><big>Your age is:</big></p> 
+	<big><strong> {{ age }} </strong></big><br/><br/><br/>
+	<p><big>Your phone number is: </big></p> 
+	<big><strong> {{ phoneNum }} </strong></big><br/><br/><br/>
+      {% endif %}
+	  </center>
+  </body>
+</html>

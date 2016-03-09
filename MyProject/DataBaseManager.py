@@ -7,8 +7,8 @@ NAME_DB = "MainDB.db"
 
 class DataBaseManager(object):
 
-    def __init__(self, ):
-        self.con = sqlite3.connect(NAME_DB)
+    def __init__(self, name):
+        self.con = sqlite3.connect(name)
         self.cur = self.con.cursor()
 
     def create_table(self, table_name, fields):

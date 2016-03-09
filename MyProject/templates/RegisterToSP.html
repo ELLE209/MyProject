@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>Registration page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class="container">
+	  <center>
+      <h1>Please enter your information</h1>
+      <br>
+      <form action="" method="post">
+        <input type="text" placeholder="Name" name="name" ><br/><br/><br/>
+        <input type="number" placeholder="Age" name="age" min="1" max="120"><br/><br/><br/>
+		<input type="text" placeholder="Phone Number" name="phoneNum" ><br/><br/><br/>
+		<input class="btn btn-default" type="submit" value="Register">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+	  </center>
+    </div>
+  </body>
+</html>

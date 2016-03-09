@@ -18,7 +18,9 @@ DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
-SP_SERVER_PATH = 'http://10.0.0.9:8080'
+SP_SERVER_PATH = 'http://192.168.2.250:8000'
+HOST = '0.0.0.0'
+PORT = 80
 # endregion
 
 # region ------------------ GLOBAL -----------------------
@@ -57,8 +59,9 @@ def private_login(username, password):
 #    return 'Hello %s, you are successfully connected.' % user
 
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
+@app.route('/register/<id>', methods=['GET', 'POST'])
+def register(id):
+    print id
     error = None
     if request.method == 'POST':
         # add this user to database
@@ -67,8 +70,8 @@ def register():
         confirm_pass = request.form['confirmPassword']
 
         if confirm_pass == password:
-            add_user(6, username, password, 1, 44)
-            return redirect(SP_SERVER_PATH+'/registeredas/44')
+            add_user(6, username, password, 1, id)
+            return redirect(SP_SERVER_PATH+'/registeredas/'+id)
         else:
             error = 'Invalid Credentials. Please try again.'
     return render_template('Register.html', error=error)
@@ -107,8 +110,9 @@ def create_db():
 
 
 def main():
-    create_db()
-    app.run(host='0.0.0.0', port=80)
+    #create_db()
+    app.run(host=HOST, port=PORT)
+    #app.run(host='0.0.0.0', port=80)
 
 if __name__ == '__main__':
     main()

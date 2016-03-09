@@ -19,7 +19,9 @@ DEBUG = True
 SECRET_KEY = 'other development key'
 USERNAME = 'admin'
 PASSWORD = 'default pass'
-MAIN_SERVER_PATH = 'http://10.0.0.9:80'
+MAIN_SERVER_PATH = 'http://192.168.2.250:80'
+HOST = '0.0.0.0'
+PORT = 8000
 # endregion
 
 # region ------------------ GLOBAL -----------------------
@@ -68,10 +70,11 @@ def profile(userid):
 @app.route('/register')
 def register():
     user_id = generate_user_id()
-    return redirect(MAIN_SERVER_PATH+"/register")
+    user_id = str(user_id)
+    return redirect(MAIN_SERVER_PATH+"/register/"+user_id)
 
 
-@app.route('/registeredas/<user>')
+@app.route('/registeredas/<user>', methods=['GET', 'POST'])
 def registered(user):
     error = None
     if request.method == 'POST':
@@ -80,10 +83,10 @@ def registered(user):
         age = request.form['age']
         phone_num = request.form['phoneNum']
 
-        if name and age and phone_num:
-            add_user(44, name, age, phone_num)
-            return redirect('/user/44')
-        else:
+        try:
+            add_user(user, name, age, phone_num)
+            return redirect('/user/'+user)
+        except:
             error = 'Invalid Info. Please try again.'
     return render_template('RegisterToSP.html', error=error)
 
@@ -110,7 +113,8 @@ def create_db():
 
 def main():
     create_db()
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host=HOST, port=PORT)
+    #app.run(host='0.0.0.0', port=8000)
 
 if __name__ == '__main__':
     main()

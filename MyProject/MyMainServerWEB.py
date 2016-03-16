@@ -6,10 +6,9 @@ My Project...
 
 # region ------------------ IMPORTS -----------------------
 
-from DataBaseManager import  *
+from DataBaseManager import *
 
-from flask import Flask, request, g, redirect, url_for, \
-    abort, render_template, flash
+from flask import Flask, request, g, redirect, url_for, abort, render_template, flash
 from contextlib import closing
 # endregion
 
@@ -18,7 +17,7 @@ DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
-SP_SERVER_PATH = 'http://192.168.2.250:8000'
+SP_SERVER_PATH = 'http://192.168.2.191:8000'
 HOST = '0.0.0.0'
 PORT = 80
 # endregion
@@ -34,15 +33,15 @@ data_base_manager = DataBaseManager("MainDB.db")
 def login():
     error = None
     if request.method == 'POST':
-        # find user in database
-        username = request.form['username']
-        password = request.form['password']
-        query = "SELECT spID, spUserID FROM Users WHERE username='%s' AND passw='%s'" % (username, password)
-        sp_id, sp_user_id = data_base_manager.exec_query(query)
-        if sp_user_id:
+        try:
+            # find user in database
+            username = request.form['username']
+            password = request.form['password']
+            query = "SELECT spID, spUserID FROM Users WHERE username='%s' AND passw='%s'" % (username, password)
+            sp_id, sp_user_id = data_base_manager.exec_query(query)
             sp_url = get_sp_url(sp_id, sp_user_id)
             return redirect(sp_url)
-        else:
+        except:
             error = 'Invalid Credentials. Please try again.'
     return render_template('LoginMain.html', error=error)
 

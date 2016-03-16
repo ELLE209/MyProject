@@ -19,7 +19,7 @@ DEBUG = True
 SECRET_KEY = 'other development key'
 USERNAME = 'admin'
 PASSWORD = 'default pass'
-MAIN_SERVER_PATH = 'http://192.168.2.250:80'
+MAIN_SERVER_PATH = 'http://192.168.2.191:80'
 HOST = '0.0.0.0'
 PORT = 8000
 # endregion
@@ -29,9 +29,10 @@ app = Flask(__name__)
 data_base_manager = DataBaseManager("PhoneBookDB.db")
 # endregion
 
-#@app.route('/login')
-#def login():
-#    return 'Welcome to My Service Provider!'
+
+@app.route('/')
+def index():
+    return render_template('PhoneBookIndex.html')
 
 
 # route for handling the login page logic
@@ -39,10 +40,12 @@ data_base_manager = DataBaseManager("PhoneBookDB.db")
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+        username = request.form['username']
+        password = request.form['password']
+        if username != 'admin' or password != 'admin':
             error = 'Invalid Credentials. Please try again.'
         else:
-            return redirect(url_for('home'))
+            return redirect('/login/%s %s' % (username, password))
     return render_template('LoginSP.html', error=error)
 
 

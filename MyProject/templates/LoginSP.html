@@ -12,13 +12,12 @@
       <form action="" method="post">
         <input type="text" placeholder="Username" name="username" ><br/><br/>
         <input type="password" placeholder="Password" name="password" ><br/>
-        <!--<input class="btn btn-default" type="submit" value="Login">-->
       </form>
 	  <form method="get" action="/login">
 		<input class="btn btn-default" type="submit" value="Login with username & password">
 	  </form>
 	  or<br/><br/>
-	  <form method="get" action="/login/a a">
+	  <form method="get" action="/login/mymainserver">
 		<input class="btn btn-default" type="submit" value="Login with MyMainServer (preferable)">
 	  </form>
       {% if error %}

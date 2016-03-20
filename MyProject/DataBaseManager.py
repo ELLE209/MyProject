@@ -2,9 +2,6 @@ import sqlite3
 import sys
 
 
-#NAME_DB = "MainDB.db"
-
-
 class DataBaseManager(object):
 
     def __init__(self, name):

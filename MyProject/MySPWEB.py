@@ -19,7 +19,7 @@ DEBUG = True
 SECRET_KEY = 'other development key'
 USERNAME = 'admin'
 PASSWORD = 'default pass'
-MAIN_SERVER_PATH = 'http://192.168.2.191:80'
+MAIN_SERVER_PATH = 'http://192.168.2.193:80'
 HOST = '0.0.0.0'
 PORT = 8000
 # endregion
@@ -49,11 +49,11 @@ def login():
     return render_template('LoginSP.html', error=error)
 
 
-@app.route('/login/<username> <password>')
-def private_login(username, password):
-    # return 'Hello ' + username + ' ' + password + '!'
+@app.route('/login/<server>')
+def private_login(server):
     # redirect to My Main Server
-    return redirect(MAIN_SERVER_PATH+'/login')  # /%s %s' % (username, password), code=302)
+    if server.lower() == "mymainserver":
+        return redirect(MAIN_SERVER_PATH+'/login')  # /%s %s' % (username, password), code=302)
 
 
 @app.route('/user/<userid>')
@@ -117,7 +117,6 @@ def create_db():
 def main():
     create_db()
     app.run(host=HOST, port=PORT)
-    #app.run(host='0.0.0.0', port=8000)
 
 if __name__ == '__main__':
     main()

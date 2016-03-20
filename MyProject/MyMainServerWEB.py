@@ -17,7 +17,7 @@ DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
-SP_SERVER_PATH = 'http://192.168.2.191:8000'
+SP_SERVER_PATH = 'http://192.168.2.193:8000'
 HOST = '0.0.0.0'
 PORT = 80
 # endregion
@@ -111,7 +111,6 @@ def create_db():
 def main():
     #create_db()
     app.run(host=HOST, port=PORT)
-    #app.run(host='0.0.0.0', port=80)
 
 if __name__ == '__main__':
     main()

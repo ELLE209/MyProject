@@ -6,20 +6,19 @@ My Project...
 
 # region ------------------ IMPORTS -----------------------
 from DataBaseManager import *
+from Encryption import *
 
-from flask import Flask, request, g, redirect, url_for, \
-    abort, render_template, flash
+from flask import Flask, request, g, redirect, url_for, abort, render_template, flash
 from contextlib import closing
 # endregion
 
 # region ------------------ CONFIGURATIONS -----------------------
-#DATABASE = 'C:\MyProject\MyProject\databases\MyDB.db'
-#DATABASE = 'C:\Users\Elizabeth\Documents\GitHub\MyProject\MyProject\databases\MyDB.db'
 DEBUG = True
 SECRET_KEY = 'other development key'
 USERNAME = 'admin'
 PASSWORD = 'default pass'
-MAIN_SERVER_PATH = 'http://192.168.2.193:80'
+#MAIN_SERVER_PATH = 'http://192.168.2.193:80'
+MAIN_SERVER_PATH = 'http://10.0.0.9:80'
 HOST = '0.0.0.0'
 PORT = 8000
 # endregion
@@ -27,6 +26,8 @@ PORT = 8000
 # region ------------------ GLOBAL -----------------------
 app = Flask(__name__)
 data_base_manager = DataBaseManager("PhoneBookDB.db")
+key = b'Sixteen Byte Key'
+e = Encryption(key)
 # endregion
 
 
@@ -59,7 +60,7 @@ def private_login(server):
 @app.route('/user/<userid>')
 def profile(userid):
     # show user profile
-    #query = "SELECT name, age, phoneNum FROM UserProfiles WHERE ID=11"
+    userid = e.decryptAES(userid)
     query = "SELECT name, age, phoneNum FROM UserProfiles WHERE ID=%s" % userid
     print query
     name, age, phone_num = data_base_manager.exec_query(query)
@@ -74,11 +75,13 @@ def profile(userid):
 def register():
     user_id = generate_user_id()
     user_id = str(user_id)
+    user_id = e.encryptAES(user_id)
     return redirect(MAIN_SERVER_PATH+"/register/"+user_id)
 
 
 @app.route('/registeredas/<user>', methods=['GET', 'POST'])
 def registered(user):
+    user = e.decryptAES(user)
     error = None
     if request.method == 'POST':
         # add this user to database
@@ -88,6 +91,7 @@ def registered(user):
 
         try:
             add_user(user, name, age, phone_num)
+            user = e.encryptAES(user)
             return redirect('/user/'+user)
         except:
             error = 'Invalid Info. Please try again.'
@@ -105,11 +109,11 @@ def add_user(id, name, age, phone_num):
 
 
 def create_db():
-    fields = ["ID integer primary key", "name text not null", "age int not null",
+    fields = ["ID integer primary key autoincrement", "name text not null", "age integer not null",
               "phoneNum text not null"]
     data_base_manager.create_table("UserProfiles", fields)
-    fields = [(11, 'Elizabeth', 17, '09-8656735'), (22, 'David', 10, '03-1234567'),
-              (33, 'Dana', 25, '04-9182734')]
+    fields = [(101, 'Elizabeth', 17, '09-8656735'), (102, 'David', 10, '03-1234567'),
+              (103, 'Dana', 25, '04-9182734')]
     data_base_manager.insert("UserProfiles", fields)
     data_base_manager.print_table("UserProfiles")
 

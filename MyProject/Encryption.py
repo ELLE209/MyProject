@@ -1,12 +1,11 @@
 from Crypto.Cipher import AES
 import base64
-import os
 
 
 class Encryption(object):
 
     def __init__(self, key, enc_type="AES", block=16):
-        self.cipher = AES.new(key)
+        self.__cipher = AES.new(key)
         self.encrypt_type = enc_type
         self.block_size = block
         self.padding = '{'
@@ -17,7 +16,7 @@ class Encryption(object):
 
     def encryptAES(self, data):
         padded = self.add_padding(data)
-        encrypted = self.cipher.encrypt(padded)
+        encrypted = self.__cipher.encrypt(padded)
         encoded = base64.b64encode(encrypted)
         final = self.remove_slash(encoded)
         return final
@@ -25,7 +24,7 @@ class Encryption(object):
     def decryptAES(self, encoded):
         correct = self.add_slash_again(encoded)
         decoded = base64.b64decode(correct)
-        decrypted = self.cipher.decrypt(decoded)
+        decrypted = self.__cipher.decrypt(decoded)
         no_padding = decrypted.rstrip(self.padding)
         return no_padding
 
@@ -41,9 +40,11 @@ class Encryption(object):
             data = data[:i] + '/' + data[i+1:]
         return data
 
-'''
-e = Encryption(b'Sixteen Byte Key')
+"""
+key = b'Sixteen Byte Key'
+key = pickle.loads(pickle.dumps(key))
+e = Encryption(key)
 enc = e.encryptAES('101')
 print enc
 print e.decryptAES(enc)
-'''
+"""

@@ -17,8 +17,8 @@ DEBUG = True
 SECRET_KEY = 'other development key'
 USERNAME = 'admin'
 PASSWORD = 'default pass'
-#MAIN_SERVER_PATH = 'http://192.168.2.193:80'
-MAIN_SERVER_PATH = 'http://10.0.0.9:80'
+MAIN_SERVER_PATH = 'http://192.168.2.193:80'
+#MAIN_SERVER_PATH = 'http://10.0.0.9:80'
 HOST = '0.0.0.0'
 PORT = 8000
 # endregion

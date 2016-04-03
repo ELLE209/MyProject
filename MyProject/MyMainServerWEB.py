@@ -18,8 +18,8 @@ DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
-#SP_SERVER_PATH = 'http://192.168.2.193:8000'
-SP_SERVER_PATH = 'http://10.0.0.9:8000'
+SP_SERVER_PATH = 'http://192.168.2.193:8000'
+#SP_SERVER_PATH = 'http://10.0.0.9:8000'
 HOST = '0.0.0.0'
 PORT = 80
 # endregion
@@ -90,11 +90,8 @@ def get_encrypt_obj(sid):
     query = "SELECT key FROM SPs WHERE SPID=%d" % sid
     print query
     #e = data_base_manager.exec_query(query)
-    key = data_base_manager.exec_query(query)
-    print key
-    print key[0]
-    e = Encryption(pickle.loads(key[0]))
-    return e
+    key = data_base_manager.exec_query(query)[0]
+    return Encryption(key)
 
 
 def add_user(id, username, passw, sp_id, sp_user_id):
@@ -127,7 +124,7 @@ def create_db2():
     data_base_manager.create_table("SPs", fields)
     key1 = b'Sixteen Byte Key'
     # 4th parameter: Encryption(key1)
-    fields = [(1, 'Sp1...', 'http://192.168.2.191', pickle.dumps(key1)), (2, 'Sp2...', 'http:/...', 'key2')]
+    fields = [(1, 'Sp1...', 'http://192.168.2.191', key1), (2, 'Sp2...', 'http:/...', 'key2')]
     data_base_manager.insert("SPs", fields)
     data_base_manager.print_table("SPs")
 
@@ -136,7 +133,7 @@ def main():
     create_db()
     key1 = b'Sixteen Byte Key'
     # 4th parameter: Encryption(key1)
-    fields = [(1, 'Sp1...', 'http://192.168.2.191', pickle.dumps(key1)), (2, 'Sp2...', 'http:/...', 'key2')]
+    fields = [(1, 'Sp1...', 'http://192.168.2.191', key1), (2, 'Sp2...', 'http:/...', 'key2')]
     data_base_manager.insert("SPs", fields)
     data_base_manager.print_table("SPs")
     #ConnectServers()

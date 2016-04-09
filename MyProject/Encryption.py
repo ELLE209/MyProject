@@ -39,12 +39,3 @@ class Encryption(object):
             i = data.find('$')
             data = data[:i] + '/' + data[i+1:]
         return data
-
-"""
-key = b'Sixteen Byte Key'
-key = pickle.loads(pickle.dumps(key))
-e = Encryption(key)
-enc = e.encryptAES('101')
-print enc
-print e.decryptAES(enc)
-"""

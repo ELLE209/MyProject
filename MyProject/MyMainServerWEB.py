@@ -1,44 +1,34 @@
-# region ------------------ ABOUT -----------------------
-"""
-My Project...
-"""
-# endregion
 
-# region ------------------ IMPORTS -----------------------
+# region ---------------------- IMPORTS -------------------------
 from DataBaseManager import *
 from Encryption import *
 from ThreadWithReturnValue import *
 import socket
-from flask import Flask, request, g, redirect, url_for, abort, render_template, flash
-from contextlib import closing
+from flask import Flask, request, redirect, render_template
 import thread
 import string
 import random
 # endregion
 
-# region ------------------ CONFIGURATIONS -----------------------
+# region ------------------ CONFIGURATIONS ----------------------
 DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
-#SP_SERVER_IP = '192.168.2.193'
-#SP_SERVER_IP = '10.0.0.9'
-#SP_SERVER_PORT = 8000
-#SP_SERVER_PATH = 'http://' + SP_SERVER_IP + ':' + str(SP_SERVER_PORT)
 HOST = '0.0.0.0'
 PORT = 80
 DB_NAME = "MainDB.db"
 MASTER = b'Sixt33n Byt3 K3y'
 # endregion
 
-# region ------------------ GLOBAL -----------------------
+
+# region ---------------------- GLOBALS -------------------------
 app = Flask(__name__)
 server_sock = socket.socket()
-#sp_name = ''
-#sp_server_path = ''
 # endregion
 
 
+# region ------------------- URL_FUNCTIONS ----------------------
 # route for handling the login page logic
 @app.route('/login/<sp>', methods=['GET', 'POST'])
 def login(sp):
@@ -54,10 +44,7 @@ def login(sp):
             data_base_manager = DataBaseManager(DB_NAME)
             sp_user_id = data_base_manager.exec_query(query)[0]
             data_base_manager.close_connection()
-            print 111111, sp_user_id
-            # insert real spID
             sp_user_id = get_encrypt_obj(sp_id).encryptAES(str(sp_user_id))
-            print 222222, sp_user_id
             sp_url = '%s/user/%s' % (get_sp_url(sp_id), str(sp_user_id))
             return redirect(sp_url)
         except Exception, ex:
@@ -90,15 +77,16 @@ def register(userid, sp):
         else:
             error = 'Invalid Credentials. Please try again.'
     return render_template('Register.html', error=error)
+# endregion
 
 
+# region ------------------ OTHER_FUNCTIONS ---------------------
 def get_sp_url(sp_id=1):
     query = "SELECT redirectPath FROM SPs WHERE SPID=%d" % sp_id
     try:
         data_base_manager = DataBaseManager(DB_NAME)
         path = data_base_manager.exec_query(query)[0]
         data_base_manager.close_connection()
-        print path
         return path
     except Exception, e:
         print 'Unable to execute query: ' + query
@@ -106,9 +94,7 @@ def get_sp_url(sp_id=1):
 
 
 def get_encrypt_obj(sid):
-    #query = "SELECT encryptObj FROM Users WHERE SPID=%d" % sid
     query = "SELECT key FROM SPs WHERE SPID=%d" % sid
-    print query
     data_base_manager = DataBaseManager(DB_NAME)
     key = data_base_manager.exec_query(query)[0]
     data_base_manager.close_connection()
@@ -135,28 +121,6 @@ def create_db():
     data_base_manager.create_table("SPs", fields)
     data_base_manager.close_connection()
 
-'''
-def create_db2():
-    data_base_manager = DataBaseManager(DB_NAME)
-    fields = ["ID integer primary key autoincrement", "username text not null", "passw text not null",
-              "spID integer not null", "spUserID integer not null"]
-    data_base_manager.create_table("Users", fields)
-    fields = [(1, 'elle', 'EL', 1, 101), (2, 'David', '2511', 1, 102), (3, 'dana123', '12345', 1, 103),
-              (4, 'dana123', '12345', 2, 101), (5, 'elle', 'EL', 2, 102)]
-    data_base_manager.insert("Users", fields)
-    #data_base_manager.print_table("Users")
-
-    fields = ["SPID integer primary key autoincrement", "details text not null", "redirectPath text not null",
-              "key text not null"]  # , "encryptObj blob not null"]
-    data_base_manager.create_table("SPs", fields)
-    #key1 = b'Sixteen Byte Key'
-    # 4th parameter: Encryption(key1)
-    #fields = [(1, 'Sp1...', 'http://192.168.2.191', key1), (2, 'Sp2...', 'http:/...', 'key2')]
-    #data_base_manager.insert("SPs", fields)
-    data_base_manager.print_table("SPs")
-    data_base_manager.close_connection()
-'''
-
 
 def generate_random(size=16):
     chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
@@ -169,14 +133,11 @@ def generate_random(size=16):
 def sps_comm():
     while True:
         sp_sock, sp_addr = server_sock.accept()
-        print 'in1'
         sp_thread = ThreadWithReturnValue(target=register_sp, args=(sp_sock,))
         sp_thread.start()
         fields = sp_thread.join()
-        print 'in2'
         data_base_manager = DataBaseManager("MainDB.db")
         data_base_manager.insert("SPs", fields)
-        print 'in3'
         data_base_manager.print_table("SPs")
         data_base_manager.close_connection()
 
@@ -190,9 +151,8 @@ def register_sp(sp_sock):
         sp_name, sp_server_path = sp_info.split('@')
         new_id = 1
         key = generate_random()
-        print "key:    " + key
 
-        #change encryption to Asymmetric
+        # change encryption to Asymmetric
         key2send = Encryption(b'Sixteen Byte Key').encryptAES(key)
         print key2send + '@' + str(new_id)
         sp_sock.send(key2send + '@' + str(new_id))
@@ -205,11 +165,14 @@ def register_sp(sp_sock):
 
         key = Encryption(MASTER).encryptAES(key)
         return [(new_id, sp_name, sp_server_path, key), ]
+
     except Exception, e:
         print "ERROR"
         print e
+# endregion
 
 
+# region ------------------------ MAIN --------------------------
 def main():
     create_db()
 
@@ -217,20 +180,16 @@ def main():
     fields = [(1, 'elle', 'EL', 1, 101), (2, 'David', '2511', 1, 102), (3, 'dana123', '12345', 1, 103),
               (4, 'dana123', '12345', 2, 101), (5, 'elle', 'EL', 2, 102)]
     data_base_manager.insert("Users", fields)
-
-    #key1 = b'Sixteen Byte Key'
-    #fields = [(1, 'Sp1...', 'http://192.168.2.191', key1), (2, 'Sp2...', 'http:/...', 'key2')]
-    #data_base_manager.insert("SPs", fields)
     data_base_manager.print_table("Users")
     data_base_manager.print_table("SPs")
     data_base_manager.close_connection()
 
     server_sock.bind((HOST, int(PORT)+1))
     server_sock.listen(5)
-
     thread.start_new_thread(sps_comm, ())
-    #ConnectServers()
+
     app.run(host=HOST, port=PORT)
 
 if __name__ == '__main__':
     main()
+# endregion

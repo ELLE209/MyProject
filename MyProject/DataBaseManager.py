@@ -1,5 +1,4 @@
-import sqlite3 
-import sys
+import sqlite3
 
 
 class DataBaseManager(object):

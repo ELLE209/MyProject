@@ -24,7 +24,7 @@
       <file leaf-file-name="MyMainServerWEB.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MyMainServerWEB.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.199522">
+            <state vertical-scroll-proportion="0.7144564">
               <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding>
                 <element signature="e#67#96#0" expanded="true" />
@@ -425,7 +425,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1698" height="1020" extended-state="6" />
+    <frame x="-9" y="-9" width="1698" height="1020" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1450151" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -849,7 +849,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MyMainServerWEB.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.199522">
+        <state vertical-scroll-proportion="0.7144564">
           <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding>
             <element signature="e#67#96#0" expanded="true" />

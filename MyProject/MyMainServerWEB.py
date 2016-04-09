@@ -7,10 +7,13 @@ My Project...
 # region ------------------ IMPORTS -----------------------
 from DataBaseManager import *
 from Encryption import *
-
+from ThreadWithReturnValue import *
+import socket
 from flask import Flask, request, g, redirect, url_for, abort, render_template, flash
 from contextlib import closing
-import pickle
+import thread
+import string
+import random
 # endregion
 
 # region ------------------ CONFIGURATIONS -----------------------
@@ -18,48 +21,58 @@ DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
-SP_SERVER_PATH = 'http://192.168.2.193:8000'
-#SP_SERVER_PATH = 'http://10.0.0.9:8000'
+#SP_SERVER_IP = '192.168.2.193'
+#SP_SERVER_IP = '10.0.0.9'
+#SP_SERVER_PORT = 8000
+#SP_SERVER_PATH = 'http://' + SP_SERVER_IP + ':' + str(SP_SERVER_PORT)
 HOST = '0.0.0.0'
 PORT = 80
+DB_NAME = "MainDB.db"
+MASTER = b'Sixt33n Byt3 K3y'
 # endregion
 
 # region ------------------ GLOBAL -----------------------
 app = Flask(__name__)
-data_base_manager = DataBaseManager("MainDB.db")
-#key = b'Sixteen byte key'
-#e = Encryption(key)
+server_sock = socket.socket()
+#sp_name = ''
+#sp_server_path = ''
 # endregion
 
 
 # route for handling the login page logic
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+@app.route('/login/<sp>', methods=['GET', 'POST'])
+def login(sp):
     error = None
     if request.method == 'POST':
         try:
             # find user in database
             username = request.form['username']
             password = request.form['password']
-            query = "SELECT spID, spUserID FROM Users WHERE username='%s' AND passw='%s'" % (username, password)
-            sp_id, sp_user_id = data_base_manager.exec_query(query)
-            print sp_user_id
-            e = get_encrypt_obj(1)  # insert real spID
-            sp_user_id = e.encryptAES(str(sp_user_id))
-            print sp_user_id
-            sp_url = get_sp_url(sp_id, sp_user_id)
+            sp_id = int(sp)  # add decryption
+            query = "SELECT spUserID FROM Users WHERE username='%s' AND passw='%s' AND spID=%d" %\
+                    (username, password, sp_id)
+            data_base_manager = DataBaseManager(DB_NAME)
+            sp_user_id = data_base_manager.exec_query(query)[0]
+            data_base_manager.close_connection()
+            print 111111, sp_user_id
+            # insert real spID
+            sp_user_id = get_encrypt_obj(sp_id).encryptAES(str(sp_user_id))
+            print 222222, sp_user_id
+            sp_url = '%s/user/%s' % (get_sp_url(sp_id), str(sp_user_id))
             return redirect(sp_url)
-        except:
+        except Exception, ex:
             error = 'Invalid Credentials. Please try again.'
+            print ex
     return render_template('LoginMain.html', error=error)
 
 
 # route for handling the registration page logic
-@app.route('/register/<userid>', methods=['GET', 'POST'])
-def register(userid):
+@app.route('/register/<userid> <sp>', methods=['GET', 'POST'])
+def register(userid, sp):
     print userid
-    e = get_encrypt_obj(1)  # insert real spID
-    userid = e.decryptAES(userid)
+    print "sp:   " + sp
+    sp_id = int(sp)
+    sp_userid = get_encrypt_obj(sp_id).decryptAES(userid)
     error = None
     if request.method == 'POST':
         # add this user to database
@@ -68,39 +81,51 @@ def register(userid):
         confirm_pass = request.form['confirmPassword']
 
         if confirm_pass == password:
-            add_user(6, username, password, 1, userid)
-            userid = e.encryptAES(userid)
-            return redirect(SP_SERVER_PATH+'/registeredas/'+userid)
+            data_base_manager = DataBaseManager(DB_NAME)
+            user_id = data_base_manager.last_id("Users") + 1
+            data_base_manager.close_connection()
+            add_user(user_id, username, password, sp_id, sp_userid)
+            sp_userid = get_encrypt_obj(sp_id).encryptAES(sp_userid)
+            return redirect(get_sp_url()+'/registeredas/'+sp_userid)
         else:
             error = 'Invalid Credentials. Please try again.'
     return render_template('Register.html', error=error)
 
 
-def get_sp_url(sp_id, sp_user_id):
+def get_sp_url(sp_id=1):
     query = "SELECT redirectPath FROM SPs WHERE SPID=%d" % sp_id
     try:
-        #path = data_base_manager.exec_query(query)
-        return '%s/user/%s' % (SP_SERVER_PATH, sp_user_id)
-    except:
-        pass
+        data_base_manager = DataBaseManager(DB_NAME)
+        path = data_base_manager.exec_query(query)[0]
+        data_base_manager.close_connection()
+        print path
+        return path
+    except Exception, e:
+        print 'Unable to execute query: ' + query
+        print e
 
 
 def get_encrypt_obj(sid):
     #query = "SELECT encryptObj FROM Users WHERE SPID=%d" % sid
     query = "SELECT key FROM SPs WHERE SPID=%d" % sid
     print query
-    #e = data_base_manager.exec_query(query)
+    data_base_manager = DataBaseManager(DB_NAME)
     key = data_base_manager.exec_query(query)[0]
+    data_base_manager.close_connection()
+    key = Encryption(MASTER).decryptAES(key)
     return Encryption(key)
 
 
 def add_user(id, username, passw, sp_id, sp_user_id):
     fields = [(id, username, passw, sp_id, sp_user_id)]
+    data_base_manager = DataBaseManager(DB_NAME)
     data_base_manager.insert("Users", fields)
     data_base_manager.print_table("Users")
+    data_base_manager.close_connection()
 
 
 def create_db():
+    data_base_manager = DataBaseManager(DB_NAME)
     fields = ["ID integer primary key autoincrement", "username text not null", "passw text not null",
               "spID integer not null", "spUserID integer not null"]
     data_base_manager.create_table("Users", fields)
@@ -108,37 +133,103 @@ def create_db():
     fields = ["SPID integer primary key autoincrement", "details text not null", "redirectPath text not null",
               "key text not null"]  # , "encryptObj blob not null"]
     data_base_manager.create_table("SPs", fields)
+    data_base_manager.close_connection()
 
-
+'''
 def create_db2():
+    data_base_manager = DataBaseManager(DB_NAME)
     fields = ["ID integer primary key autoincrement", "username text not null", "passw text not null",
               "spID integer not null", "spUserID integer not null"]
     data_base_manager.create_table("Users", fields)
     fields = [(1, 'elle', 'EL', 1, 101), (2, 'David', '2511', 1, 102), (3, 'dana123', '12345', 1, 103),
               (4, 'dana123', '12345', 2, 101), (5, 'elle', 'EL', 2, 102)]
     data_base_manager.insert("Users", fields)
-    data_base_manager.print_table("Users")
+    #data_base_manager.print_table("Users")
 
     fields = ["SPID integer primary key autoincrement", "details text not null", "redirectPath text not null",
               "key text not null"]  # , "encryptObj blob not null"]
     data_base_manager.create_table("SPs", fields)
-    key1 = b'Sixteen Byte Key'
+    #key1 = b'Sixteen Byte Key'
     # 4th parameter: Encryption(key1)
-    fields = [(1, 'Sp1...', 'http://192.168.2.191', key1), (2, 'Sp2...', 'http:/...', 'key2')]
-    data_base_manager.insert("SPs", fields)
+    #fields = [(1, 'Sp1...', 'http://192.168.2.191', key1), (2, 'Sp2...', 'http:/...', 'key2')]
+    #data_base_manager.insert("SPs", fields)
     data_base_manager.print_table("SPs")
+    data_base_manager.close_connection()
+'''
+
+
+def generate_random(size=16):
+    chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
+    key = ''
+    for i in range(size):
+        key += random.choice(chars)
+    return key
+
+
+def sps_comm():
+    while True:
+        sp_sock, sp_addr = server_sock.accept()
+        print 'in1'
+        sp_thread = ThreadWithReturnValue(target=register_sp, args=(sp_sock,))
+        sp_thread.start()
+        fields = sp_thread.join()
+        print 'in2'
+        data_base_manager = DataBaseManager("MainDB.db")
+        data_base_manager.insert("SPs", fields)
+        print 'in3'
+        data_base_manager.print_table("SPs")
+        data_base_manager.close_connection()
+
+
+def register_sp(sp_sock):
+    try:
+        sp_sock.send('OK Send name redirectpath')
+        print 'OK Send name redirectpath'
+        sp_info = sp_sock.recv(1024)
+        print sp_info
+        sp_name, sp_server_path = sp_info.split('@')
+        new_id = 1
+        key = generate_random()
+        print "key:    " + key
+
+        #change encryption to Asymmetric
+        key2send = Encryption(b'Sixteen Byte Key').encryptAES(key)
+        print key2send + '@' + str(new_id)
+        sp_sock.send(key2send + '@' + str(new_id))
+
+        ans = sp_sock.recv(1024)
+        print ans
+        if not ans.startswith('OK'):
+            raise ValueError
+        sp_sock.close()
+
+        key = Encryption(MASTER).encryptAES(key)
+        return [(new_id, sp_name, sp_server_path, key), ]
+    except Exception, e:
+        print "ERROR"
+        print e
 
 
 def main():
     create_db()
-    key1 = b'Sixteen Byte Key'
-    # 4th parameter: Encryption(key1)
-    fields = [(1, 'Sp1...', 'http://192.168.2.191', key1), (2, 'Sp2...', 'http:/...', 'key2')]
-    data_base_manager.insert("SPs", fields)
+
+    data_base_manager = DataBaseManager(DB_NAME)
+    fields = [(1, 'elle', 'EL', 1, 101), (2, 'David', '2511', 1, 102), (3, 'dana123', '12345', 1, 103),
+              (4, 'dana123', '12345', 2, 101), (5, 'elle', 'EL', 2, 102)]
+    data_base_manager.insert("Users", fields)
+
+    #key1 = b'Sixteen Byte Key'
+    #fields = [(1, 'Sp1...', 'http://192.168.2.191', key1), (2, 'Sp2...', 'http:/...', 'key2')]
+    #data_base_manager.insert("SPs", fields)
+    data_base_manager.print_table("Users")
     data_base_manager.print_table("SPs")
+    data_base_manager.close_connection()
+
+    server_sock.bind((HOST, int(PORT)+1))
+    server_sock.listen(5)
+
+    thread.start_new_thread(sps_comm, ())
     #ConnectServers()
-    #key = b'Sixteen byte key'
-    #e = Encryption(key)
     app.run(host=HOST, port=PORT)
 
 if __name__ == '__main__':

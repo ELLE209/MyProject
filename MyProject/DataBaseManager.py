@@ -5,7 +5,7 @@ import sys
 class DataBaseManager(object):
 
     def __init__(self, name):
-        self.con = sqlite3.connect(name)
+        self.con = sqlite3.connect(name, )
         self.cur = self.con.cursor()
 
     def create_table(self, table_name, fields):
@@ -27,6 +27,11 @@ class DataBaseManager(object):
         query = query[:-1]
         query += ")"
         self.cur.executemany(query, fields)
+
+    def last_id(self, table_name):
+        rows = self.get_rows(table_name)
+        return int(rows[-1][0])
+        # return self.cur.lastrowid
 
     def get_rows(self, table_name):
         self.cur.execute("SELECT * FROM " + table_name)
@@ -57,3 +62,7 @@ class DataBaseManager(object):
             self.cur.execute("INSERT INTO "+ table_name +" VALUES (" + str(i) + ",'" + word + "'," + str(value[0]) + "," + str(value[1]) + ")" )
             i += 1
         self.con.commit()
+
+    def close_connection(self):
+        self.con.commit()
+        self.con.close()

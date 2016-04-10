@@ -12,9 +12,9 @@ DEBUG = True
 SECRET_KEY = 'other development key'
 USERNAME = 'admin'
 PASSWORD = 'default pass'
-#MAIN_SERVER_IP = '192.168.2.193'
+MAIN_SERVER_IP = '192.168.2.191'
 #MAIN_SERVER_IP = '10.0.0.9'
-MAIN_SERVER_IP = '84.109.203.199'
+#MAIN_SERVER_IP = '84.109.203.199'
 MAIN_SERVER_PORT = 80
 MAIN_SERVER_PATH = 'http://' + MAIN_SERVER_IP + ':' + str(MAIN_SERVER_PORT)
 HOST = '0.0.0.0'
@@ -110,7 +110,7 @@ def get_my_ip():
             for j in iface:
                 #print j['addr']
                 arr.append(j['addr'])
-    return arr[4]
+    return arr[0]
 
 
 def add_user(id, name, age, phone_num):

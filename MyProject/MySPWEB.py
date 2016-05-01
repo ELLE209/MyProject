@@ -1,29 +1,49 @@
+# region ----------------------- ABOUT --------------------------
+"""
+################################################################
+# Created By: Elizabeth Langerman                              #
+# Date: 04/2016                                                #
+# Name: Srvice Provider (SP) Server for example                #
+# Version: 1.0                                                 #
+# Windows Tested Versions: Win 8 32-bit, Win 7 32-bit          #
+# Python Tested Versions: 2.7 32-bit                           #
+# Python Environment: PyCharm                                  #
+################################################################
+"""
+# endregion
 
 # region ---------------------- IMPORTS -------------------------
 from DataBaseManager import *
 from Encryption import *
-import socket
 from flask import Flask, request, redirect, render_template
-import netifaces
+import ConfigParser
+import socket
+#import netifaces
+import sys
 # endregion
 
 # region ------------------ CONFIGURATIONS ----------------------
-DEBUG = True
-SECRET_KEY = 'other development key'
-USERNAME = 'admin'
-PASSWORD = 'default pass'
-MAIN_SERVER_IP = '192.168.2.191'
-#MAIN_SERVER_IP = '10.0.0.9'
-#MAIN_SERVER_IP = '84.109.203.199'
-MAIN_SERVER_PORT = 80
-MAIN_SERVER_PATH = 'http://' + MAIN_SERVER_IP + ':' + str(MAIN_SERVER_PORT)
+config = ConfigParser.ConfigParser()
+config.readfp(open('sp_config.cfg'))
+
+try:
+    MY_IP = config.get('General', 'my_ip')
+    PORT = int(config.get('General', 'port'))
+    MAIN_SERVER_IP = config.get('General', 'MainServerIP')
+    MAIN_SERVER_PORT = int(config.get('General', 'MainServerPort'))
+    DB_NAME = config.get('General', 'db_name')
+except ConfigParser.NoSectionError or ConfigParser.NoOptionError, e:
+    print e
+    sys.exit(1)
+
 HOST = '0.0.0.0'
-PORT = 8000
+MAIN_SERVER_PATH = 'http://' + MAIN_SERVER_IP + ':' + str(MAIN_SERVER_PORT)
+ME = 'PhoneBook' + '@' + 'http://' + MY_IP + ':' + str(PORT)
 # endregion
 
 # region ---------------------- GLOBALS -------------------------
 app = Flask(__name__)
-data_base_manager = DataBaseManager("PhoneBookDB.db")
+data_base_manager = DataBaseManager(DB_NAME)
 # endregion
 
 
@@ -99,20 +119,6 @@ def registered(user):
 
 
 # region ------------------ OTHER_FUNCTIONS ---------------------
-def get_my_ip():
-    arr = []
-    interfaces = netifaces.interfaces()
-    for i in interfaces:
-        if i == 'lo':
-            continue
-        iface = netifaces.ifaddresses(i).get(netifaces.AF_INET)
-        if iface != None:
-            for j in iface:
-                #print j['addr']
-                arr.append(j['addr'])
-    return arr[0]
-
-
 def add_user(id, name, age, phone_num):
     fields = [(id, name, age, phone_num)]
     data_base_manager.insert("UserProfiles", fields)
@@ -158,7 +164,6 @@ def connect_mymainserver():
 
 
 # region ------------------------ MAIN --------------------------
-ME = 'PhoneBook' + '@' + 'http://' + get_my_ip() + ':' + str(PORT)
 create_db()
 enc_obj, my_sp_id = connect_mymainserver()
 

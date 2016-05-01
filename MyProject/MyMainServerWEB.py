@@ -1,26 +1,46 @@
+# region ----------------------- ABOUT --------------------------
+"""
+################################################################
+# Created By: Elizabeth Langerman                              #
+# Date: 04/2016                                                #
+# Name: Identity Provider (IDP) Server =Main Server            #
+# Version: 1.0                                                 #
+# Windows Tested Versions: Win 8 32-bit, Win 7 32-bit          #
+# Python Tested Versions: 2.7 32-bit                           #
+# Python Environment: PyCharm                                  #
+################################################################
+"""
+# endregion
 
 # region ---------------------- IMPORTS -------------------------
 from DataBaseManager import *
 from Encryption import *
 from ThreadWithReturnValue import *
-import socket
 from flask import Flask, request, redirect, render_template
+import ConfigParser
+import socket
 import thread
 import string
 import random
+import hashlib
+import sys
 # endregion
 
 # region ------------------ CONFIGURATIONS ----------------------
-DEBUG = True
-SECRET_KEY = 'development key'
-USERNAME = 'admin'
-PASSWORD = 'default'
+config = ConfigParser.ConfigParser()
+config.readfp(open('main_config.cfg'))
+
+try:
+    PORT = int(config.get('General', 'port'))
+    DB_NAME = config.get('General', 'db_name')
+    print PORT, DB_NAME
+except ConfigParser.NoSectionError or ConfigParser.NoOptionError, e:
+    print e
+    sys.exit(1)
+
 HOST = '0.0.0.0'
-PORT = 80
-DB_NAME = "MainDB.db"
 MASTER = b'Sixt33n Byt3 K3y'
 # endregion
-
 
 # region ---------------------- GLOBALS -------------------------
 app = Flask(__name__)
@@ -35,12 +55,13 @@ def login(sp):
     error = None
     if request.method == 'POST':
         try:
-            # find user in database
+            # get username & password hash from html form
             username = request.form['username']
-            password = request.form['password']
-            sp_id = int(sp)  # add decryption
+            hashed_pass = hashlib.sha1(request.form['password']).hexdigest()
+            sp_id = int(sp)  # add decryption(?)
+            # find user in database
             query = "SELECT spUserID FROM Users WHERE username='%s' AND passw='%s' AND spID=%d" %\
-                    (username, password, sp_id)
+                    (username, hashed_pass, sp_id)
             data_base_manager = DataBaseManager(DB_NAME)
             sp_user_id = data_base_manager.exec_query(query)[0]
             data_base_manager.close_connection()
@@ -64,8 +85,8 @@ def register(userid, sp):
     if request.method == 'POST':
         # add this user to database
         username = request.form['username']
-        password = request.form['password']
-        confirm_pass = request.form['confirmPassword']
+        password = hashlib.sha1(request.form['password']).hexdigest()
+        confirm_pass = hashlib.sha1(request.form['confirmPassword']).hexdigest()
 
         if confirm_pass == password:
             data_base_manager = DataBaseManager(DB_NAME)
@@ -177,8 +198,9 @@ def main():
     create_db()
 
     data_base_manager = DataBaseManager(DB_NAME)
-    fields = [(1, 'elle', 'EL', 1, 101), (2, 'David', '2511', 1, 102), (3, 'dana123', '12345', 1, 103),
-              (4, 'dana123', '12345', 2, 101), (5, 'elle', 'EL', 2, 102)]
+    fields = [(1, 'elle', hashlib.sha1('EL').hexdigest(), 1, 101), (2, 'David', hashlib.sha1('2511').hexdigest(), 1, 102),
+              (3, 'dana123', hashlib.sha1('12345').hexdigest(), 1, 103), (4, 'dana123', hashlib.sha1('12345').hexdigest(), 2, 101),
+              (5, 'elle', hashlib.sha1('EL').hexdigest(), 2, 102)]
     data_base_manager.insert("Users", fields)
     data_base_manager.print_table("Users")
     data_base_manager.print_table("SPs")

@@ -73,7 +73,10 @@ def login():
 def private_login(server):
     # redirect to My Main Server's login page
     if server.lower() == "mymainserver":
-        return redirect(MAIN_SERVER_PATH + '/login/' + str(my_sp_id))
+        path = MAIN_SERVER_PATH + '/login/' + str(my_sp_id)
+        server = "MyMainServer"
+        return render_template('RedirectPage.html', path=path, server=server)
+        #return redirect(MAIN_SERVER_PATH + '/login/' + str(my_sp_id))
 
 
 # route for showing the user's profile page
@@ -100,7 +103,10 @@ def register():
     user_id = str(user_id)
     user_id = enc_obj.encryptAES(user_id)
     # redirect to My Main Server's registration page
-    return redirect(MAIN_SERVER_PATH+"/register/"+user_id + " " + str(my_sp_id))
+    path = (MAIN_SERVER_PATH+"/register/"+user_id + " " + str(my_sp_id))
+    server = "MyMainServer"
+    return render_template('RedirectPage.html', path=path, server=server)
+    #return redirect(MAIN_SERVER_PATH+"/register/"+user_id + " " + str(my_sp_id))
 
 
 # route for SP registration page
@@ -173,6 +179,7 @@ def connect_mymainserver():
     :return: AES encryption object, my SP ID
     """
     my_sock = socket.socket()
+    print MAIN_SERVER_IP, MAIN_SERVER_PORT
     my_sock.connect((MAIN_SERVER_IP, MAIN_SERVER_PORT+1))
     ans = my_sock.recv(1024)
     print ans
@@ -195,7 +202,7 @@ def connect_mymainserver():
     except Exception:
         my_sock.send('Error')
         my_sock.close()
-        return connect_mymainserver()
+        #return connect_mymainserver()
 # endregion
 
 

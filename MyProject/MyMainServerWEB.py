@@ -70,7 +70,9 @@ def login(sp):
             # redirect to user's profile page is SP
             sp_user_id = get_encrypt_obj(sp_id).encryptAES(str(sp_user_id))
             sp_url = '%s/user/%s' % (get_sp_url(sp_id), str(sp_user_id))
-            return redirect(sp_url)
+            server = "PhoneBook Server"
+            return render_template('RedirectPage.html', path=sp_url, server=server)
+            #return redirect(sp_url)
 
         except Exception, exc:
             # if user wasn't found
@@ -105,7 +107,10 @@ def register(userid, sp):
 
             # redirect to SP to continue registration
             sp_userid = get_encrypt_obj(sp_id).encryptAES(sp_userid)
-            return redirect(get_sp_url()+'/registeredas/'+sp_userid)
+            path = get_sp_url()+'/registeredas/'+sp_userid
+            server = "PhoneBook Server"
+            return render_template('RedirectPage.html', path=path, server=server)
+            #return redirect()
 
         else:
             # if password confirmation was incorrect

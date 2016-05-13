@@ -69,9 +69,10 @@ def login(sp):
 
             # redirect to user's profile page is SP
             sp_user_id = get_encrypt_obj(sp_id).encryptAES(str(sp_user_id))
-            sp_url = '%s/user/%s' % (get_sp_url(sp_id), str(sp_user_id))
+            addr=get_sp_url(sp_id)
+            sp_url = '%s/user/%s' % (addr, str(sp_user_id))
             server = "PhoneBook Server"
-            return render_template('RedirectPage.html', path=sp_url, server=server)
+            return render_template('RedirectPage.html', path=sp_url, server=server, addr=addr)
             #return redirect(sp_url)
 
         except Exception, exc:
@@ -107,9 +108,10 @@ def register(userid, sp):
 
             # redirect to SP to continue registration
             sp_userid = get_encrypt_obj(sp_id).encryptAES(sp_userid)
-            path = get_sp_url()+'/registeredas/'+sp_userid
+            addr = get_sp_url(sp_id)
+            path = addr + '/registeredas/' + sp_userid
             server = "PhoneBook Server"
-            return render_template('RedirectPage.html', path=path, server=server)
+            return render_template('RedirectPage.html', path=path, server=server, addr=addr)
             #return redirect()
 
         else:
@@ -203,7 +205,13 @@ def generate_random(size=16):
     return key
 
 
+# socket communication with new SPs
 def sps_comm():
+    """
+    Server side of socket comm.
+    Inserts newly connected SPs to DB.
+    :return: None
+    """
     while True:
         sp_sock, sp_addr = server_sock.accept()
         sp_thread = ThreadWithReturnValue(target=register_sp, args=(sp_sock,))
@@ -215,18 +223,30 @@ def sps_comm():
         data_base_manager.close_connection()
 
 
+# exchange details to register new SP, with socket
 def register_sp(sp_sock):
+    """
+    Exchange of details between servers:
+    Sends encrypted key, ID for the new SP and receives SP address.
+    :param sp_sock:
+    :return:
+    """
     try:
         sp_sock.send('OK Send name redirectpath')
         print 'OK Send name redirectpath'
+
+        # receive SP address
         sp_info = sp_sock.recv(1024)
         print sp_info
         sp_name, sp_server_path = sp_info.split('@')
+
+        # generate new key an sp ID
         new_id = 1
         key = generate_random()
-
         # change encryption to Asymmetric
         key2send = Encryption(b'Sixteen Byte Key').encryptAES(key)
+
+        # send key and ID
         print key2send + '@' + str(new_id)
         sp_sock.send(key2send + '@' + str(new_id))
 
@@ -242,22 +262,30 @@ def register_sp(sp_sock):
     except Exception, e:
         print "ERROR"
         print e
+
+
+# Insert a few rows to Users table in db
+def insert_init_values():
+    data_base_manager = DataBaseManager(DB_NAME)
+    fields = [(1, 'elle', hashlib.sha1('EL').hexdigest(), 1, 101), (2, 'David', hashlib.sha1('2511').hexdigest(), 1, 102),
+              (3, 'dana123', hashlib.sha1('12345').hexdigest(), 1, 103), (4, 'dana123', hashlib.sha1('12345').hexdigest(), 2, 101),
+              (5, 'elle', hashlib.sha1('EL').hexdigest(), 2, 102)]
+    data_base_manager.insert("Users", fields)
+
+    # print db tables
+    data_base_manager.print_table("Users")
+    data_base_manager.print_table("SPs")
+
+    data_base_manager.close_connection()
 # endregion
 
 
 # region ------------------------ MAIN --------------------------
 def main():
     create_db()
+    insert_init_values()
 
-    data_base_manager = DataBaseManager(DB_NAME)
-    fields = [(1, 'elle', hashlib.sha1('EL').hexdigest(), 1, 101), (2, 'David', hashlib.sha1('2511').hexdigest(), 1, 102),
-              (3, 'dana123', hashlib.sha1('12345').hexdigest(), 1, 103), (4, 'dana123', hashlib.sha1('12345').hexdigest(), 2, 101),
-              (5, 'elle', hashlib.sha1('EL').hexdigest(), 2, 102)]
-    data_base_manager.insert("Users", fields)
-    data_base_manager.print_table("Users")
-    data_base_manager.print_table("SPs")
-    data_base_manager.close_connection()
-
+    # create server socket listener (communication itself in new thread)
     server_sock.bind((HOST, int(PORT)+1))
     server_sock.listen(5)
     thread.start_new_thread(sps_comm, ())

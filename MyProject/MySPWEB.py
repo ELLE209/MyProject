@@ -75,7 +75,7 @@ def private_login(server):
     if server.lower() == "mymainserver":
         path = MAIN_SERVER_PATH + '/login/' + str(my_sp_id)
         server = "MyMainServer"
-        return render_template('RedirectPage.html', path=path, server=server)
+        return render_template('RedirectPage.html', path=path, server=server, addr=MAIN_SERVER_PATH)
         #return redirect(MAIN_SERVER_PATH + '/login/' + str(my_sp_id))
 
 
@@ -105,7 +105,7 @@ def register():
     # redirect to My Main Server's registration page
     path = (MAIN_SERVER_PATH+"/register/"+user_id + " " + str(my_sp_id))
     server = "MyMainServer"
-    return render_template('RedirectPage.html', path=path, server=server)
+    return render_template('RedirectPage.html', path=path, server=server, addr=MAIN_SERVER_PATH)
     #return redirect(MAIN_SERVER_PATH+"/register/"+user_id + " " + str(my_sp_id))
 
 

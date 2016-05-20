@@ -18,6 +18,9 @@ from Encryption import *
 from flask import Flask, request, redirect, render_template
 import ConfigParser
 import socket
+import string
+import random
+import pickle
 import sys
 # endregion
 
@@ -157,6 +160,21 @@ def create_db():
     # data_base_manager.print_table("UserProfiles")
 
 
+# create a random key
+def generate_random(size=16):
+    """
+    Generates random string 16 characters long.
+    (consists of uppercase and lowercase letters and numbers)
+    :param size: length of string to generate
+    :return: 16 chars long random key
+    """
+    chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
+    key = ''
+    for i in range(size):
+        key += random.choice(chars)
+    return key
+
+
 # get AES encryption object and sp ID
 def save_key_id(key, my_id):
     """
@@ -164,7 +182,7 @@ def save_key_id(key, my_id):
     :param my_id: sp ID to save
     :return: AES encryption object, my SP ID
     """
-    key = Encryption(b'Sixteen Byte Key').decryptAES(key)
+    #key = Encryption(b'Sixteen Byte Key').decryptAES(key)
     enc = Encryption(key)   # correct enc_obj: use to encrypt & decrypt sent data
     my_id = int(my_id)      # send it for sp identification in redirect
     return enc, my_id
@@ -175,7 +193,7 @@ def connect_mymainserver():
     """
     Creates a socket and connects to MyMainServer.
     Exchange of details between servers:
-    Sends my address and receives encrypted key, ID.
+    Sends my address, receives public key, ID, and sends encrypted symmetric key.
     :return: AES encryption object, my SP ID
     """
     my_sock = socket.socket()
@@ -191,13 +209,19 @@ def connect_mymainserver():
         print ME
         my_sock.send(ME)
 
-        # receive key, ID
+        # receive public key, ID
         data = my_sock.recv(1024)
-        key, my_id = data.split('@')
-        my_sock.send('OK End Connection')
+        public_key, my_id = data.split('@')
+        public_key = pickle.loads(public_key)
+        print public_key
+
+        # encrypt and send symmetric key
+        encryped_key = public_key.encrypt(my_key, 32)
+        my_sock.send(pickle.dumps(encryped_key))
+
         my_sock.close()
 
-        return save_key_id(key, my_id)
+        return save_key_id(my_key, my_id)
 
     except Exception:
         my_sock.send('Error')
@@ -208,7 +232,9 @@ def connect_mymainserver():
 
 # region ------------------------ MAIN --------------------------
 create_db()
+my_key = generate_random(16)
 enc_obj, my_sp_id = connect_mymainserver()
+
 
 
 def main():

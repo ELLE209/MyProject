@@ -17,12 +17,12 @@ from DataBaseManager import *
 from Encryption import *
 from ThreadWithReturnValue import *
 from flask import Flask, request, redirect, render_template
+from Crypto.PublicKey import RSA
 import ConfigParser
 import socket
 import thread
-import string
-import random
 import hashlib
+import pickle
 import sys
 # endregion
 
@@ -190,19 +190,11 @@ def create_db():
     data_base_manager.close_connection()
 
 
-# create a random key
-def generate_random(size=16):
-    """
-    Generates random string 16 characters long.
-    (consists of uppercase and lowercase letters and numbers)
-    :param size: length of string to generate
-    :return: 16 chars long random key
-    """
-    chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
-    key = ''
-    for i in range(size):
-        key += random.choice(chars)
-    return key
+# generates public and private key
+def generate_RSA_key():
+    new_key = RSA.generate(2048)
+    public = new_key.publickey()
+    return public, new_key
 
 
 # socket communication with new SPs
@@ -212,9 +204,10 @@ def sps_comm():
     Inserts newly connected SPs to DB.
     :return: None
     """
+    public_key, new_key = generate_RSA_key()
     while True:
         sp_sock, sp_addr = server_sock.accept()
-        sp_thread = ThreadWithReturnValue(target=register_sp, args=(sp_sock,))
+        sp_thread = ThreadWithReturnValue(target=register_sp, args=(sp_sock, public_key, new_key))
         sp_thread.start()
         fields = sp_thread.join()
         data_base_manager = DataBaseManager("MainDB.db")
@@ -224,12 +217,14 @@ def sps_comm():
 
 
 # exchange details to register new SP, with socket
-def register_sp(sp_sock):
+def register_sp(sp_sock, public_key, new_key):
     """
     Exchange of details between servers:
-    Sends encrypted key, ID for the new SP and receives SP address.
-    :param sp_sock:
-    :return:
+    Receives SP address, sends public key, ID for the new SP and receives encrypted symmetric key.
+    :param sp_sock: Client socket of SP
+    :param public_key: RSA public key to send
+    :param new_key: the RSA key object
+    :return: Details of newly registered SP
     """
     try:
         sp_sock.send('OK Send name redirectpath')
@@ -239,24 +234,20 @@ def register_sp(sp_sock):
         sp_info = sp_sock.recv(1024)
         print sp_info
         sp_name, sp_server_path = sp_info.split('@')
-
-        # generate new key an sp ID
         new_id = 1
-        key = generate_random()
-        # change encryption to Asymmetric
-        key2send = Encryption(b'Sixteen Byte Key').encryptAES(key)
 
-        # send key and ID
-        print key2send + '@' + str(new_id)
-        sp_sock.send(key2send + '@' + str(new_id))
+        # send public key and ID
+        print pickle.dumps(public_key) + '@' + str(new_id)
+        sp_sock.send(pickle.dumps(public_key) + '@' + str(new_id))
 
+        # receive symmetric key
         ans = sp_sock.recv(1024)
+        ans = pickle.loads(ans)
         print ans
-        if not ans.startswith('OK'):
-            raise ValueError
+        symm_key = new_key.decrypt(ans)
         sp_sock.close()
 
-        key = Encryption(MASTER).encryptAES(key)
+        key = Encryption(MASTER).encryptAES(symm_key)
         return [(new_id, sp_name, sp_server_path, key), ]
 
     except Exception, e:
